@@ -1,0 +1,47 @@
+html, body {height: 100%;margin: 0px;}
+
+body{display: flex;
+    justify-content: center;
+    align-items: center;}
+
+.board {height: 500px; width: 500px;
+    display: flex;
+    flex-wrap: wrap;}
+
+.square {height: 33.33%;
+    width: 33.33%;
+    box-sizing: border-box;
+    border: solid black 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;}
+
+.circle {border-radius: 50%;
+    height: 75%;
+    width: 75%;
+    border: solid rgb(17, 17, 17) 5px;
+    box-sizing: border-box;}
+
+.cross {height: 80%;
+    width: 80%;
+    position: relative;}
+
+.leftCross , .rightCross {height: 100%;
+    width: 5%;
+    background-color: rgb(17, 17, 17);
+    position: absolute;
+    left:46%;
+    right: 50%;
+    border-radius: 2px;}
+    
+.leftCross {transform: rotate(-45deg);}
+
+.rightCross {transform: rotate(45deg)}
+
+#a3, #b3 ,#c3 {border-top: 0px}
+
+#a3 ,#a2, #a1 {border-left: 0px}
+
+#a1, #b1 ,#c1 {border-bottom: 0px;}
+
+#c3 ,#c2 ,#c1 {border-right: 0px;}
