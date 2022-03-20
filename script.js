@@ -22,10 +22,17 @@ let gameboard = {
                 };
             gameRules.checkWin();
             if (gameRules.check() == false && gameboard.AI == true) {
-               AI.easy()
+               setTimeout(AI.easy , 500)
             }
         },
-
+        block: function () {
+            let block = document.querySelector(".block")
+            block.style.display = "flex"
+            setTimeout(()=> {
+                block.style.display = "none"
+            }, 350)
+        },
+        
         addCircle: function (i) {
             let newMove = document.createElement('div')
             newMove.classList.add('circle')
@@ -33,6 +40,7 @@ let gameboard = {
             move.squares[i].dataset.move = 'Circle'
             gameboard.squares[i] = "Circle"
             move.lastTurn = "Circle"
+            move.block()
             move.turn++
         },
 
@@ -49,6 +57,7 @@ let gameboard = {
             move.squares[i].dataset.move = 'Cross'
             gameboard.squares[i] = "Cross"
             move.lastTurn = "Cross"
+            move.block()
             move.turn++
         },
 
@@ -147,7 +156,7 @@ let gameFlow = {
             delete move.squares[i].dataset.move}
         move.lastTurn= "";
         if (gameboard.players.player1.choice == "Cross") { move.turn = 1 } 
-        else {move.turn = 2; AI.easy()}
+        else {move.turn = 2; setTimeout(AI.easy,500)}
 
     },
 }
