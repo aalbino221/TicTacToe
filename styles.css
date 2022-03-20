@@ -1,17 +1,67 @@
-html, body {height: 100%;margin: 0px;}
+@font-face {
+    font-family: "arcade";
+    src: url(ka1.ttf);
+}
+
+html, body {height: 100%;margin: 0px;
+    font-family: "arcade",Arial, Helvetica, sans-serif;}
 
 body{display: flex;
     justify-content: center;
-    align-items: center;}
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 20px 0px 20px;
+    overflow: scroll;}
 
-.board {height: 500px; width: 500px;
+.header{font-size: 36px;
+    height: 20%;
+    min-height: fit-content;
+    max-width: 500px;
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.subMenu {display: flex;
+    width: 100%;
+    justify-content: space-between;
+    min-width: fit-content;
+    min-height: fit-content;}
+
+.name-header {width: 100%;
+    text-align: center;
+    min-height: fit-content;
+    margin:0}
+
+.center {display: flex;
+    height: 80%;
+    width: 500px;
+    max-width: 500px;
+    min-width: 100px;
+    flex-direction: column;
+    min-height: fit-content;
     flex-wrap: wrap;}
+
+.score {display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 22px;
+    min-height: fit-content;}
+
+.board {height: 66.7%; width: 100%;
+    min-width: 100px;
+    min-height: 100px;
+    display: flex;
+    margin-top: 2%;
+    flex-wrap: wrap;
+    border: 2px solid rgb(17, 17, 17);
+    border-radius: 2px;
+    position: relative;}
 
 .square {height: 33.33%;
     width: 33.33%;
     box-sizing: border-box;
-    border: solid black 2px;
+    border: solid rgb(17, 17, 17) 2px;
     display: flex;
     justify-content: center;
     align-items: center;}
@@ -45,3 +95,102 @@ body{display: flex;
 #a1, #b1 ,#c1 {border-bottom: 0px;}
 
 #c3 ,#c2 ,#c1 {border-right: 0px;}
+
+.scorep1, .scorep2 {height: 28px;
+    font-size: 28px;
+    margin:2px 0 2px 0 }
+
+.textp1, .textp2 {margin: 0;}
+
+.header, .center, .board {display: none;}
+
+.menu {width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 7%;
+    font-size: 38px;
+}
+
+.name-menu {font-size: 48px;}
+
+.play1-menu {margin-bottom: 2%;
+    display: flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+    padding: 5px;
+    width: 350px;
+    margin-top: 3%;}
+
+.play1-description {display: flex;
+    align-items: center;
+    border: 2px solid black;
+    text-align: center;
+    padding: 1px;
+    border-radius: 5px;}
+
+.play1-choices, .play2-choices{display: flex;
+    justify-content: space-between;
+    border: 2px solid black;
+    padding: 8px;
+    border-radius: 5px;}
+
+.easy, .choice-cross {margin-bottom: 5px;}
+
+p{margin: 0;}
+
+.play2-description {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 1px;
+    border: 2px solid black;
+    border-radius: 5px;}
+
+.play2-menu{  display: flex;
+    flex-direction:column;
+    padding: 5px;
+    width: 350px;}
+
+.play2-names {display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 5px;
+    width: 80%;}
+
+.player1, .player2{height: 40%;
+    width: 100%;
+    font-family: "arcade";
+    font-size: 28px;
+    border: solid black 2px;
+    border-radius: 5px;}
+
+.emoji {font-size: 32px;}
+
+.play2-description:hover ,.play1-description:hover {transform: scale(1.1);
+    cursor: pointer;}
+
+.easy:hover, .hard:hover, .choice-cross:hover, .choice-circle:hover, .reset:hover, .menu-btn:hover {transform: scale(1.1);
+    cursor: pointer;}
+
+.easy {background-color: rgba(17, 17, 17, 0.377) ;
+    border-radius: 5px;
+    padding: 0 4px 0 4px}
+
+.play1-choice > .choice-cross {background-color: rgba(17, 17, 17, 0.397) ;
+    border-radius: 5px;
+    padding: 0 4px 0 0}
+
+.copy {margin-top: auto;
+    font-size: 20px}
+
+.git {height: 20px;
+    width: 20px;}
+
+.block {display: none;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    height: 100%;
+    width: 100%;}

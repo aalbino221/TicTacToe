@@ -9,19 +9,71 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="board">
-        <div class="square" id="a3"> </div>
-        <div class="square" id="b3"></div>
-        <div class="square" id="c3"></div>
-        <div class="square" id="a2"></div>
-        <div class="square" id="b2"></div>
-        <div class="square" id="c2"></div>
-        <div class="square" id="a1"></div>
-        <div class="square" id="b1"></div>
-        <div class="square" id="c1"></div>
-
+    <div class="menu">
+        <p class="name-menu">TIC-TAC-TOE</p>
+        <div class="play1-menu">
+        <div class="play1-description">
+            <p class="emoji">👉</p>1 Player</div> 
+        <div class="play1-choices">
+            <div class="play1-dif">
+                <p class="easy">Easy</p>
+                <p class="hard">Hard</p>
+            </div>
+            <div class="play1-choice">
+                <p class="choice-cross">X</p>
+                <p class="choice-circle">O</p>
+            </div>
+        </div>
+        </div>
+        <div class="play2-menu">
+            <div class="play2-description">
+                <p class="emoji">👉</p>2 Players</div>
+            <div class="play2-choices">
+            <div class="play2-names">
+                <input class="player1" type="text" placeholder="Player 1"></input>
+                <input class="player2" type="text" placeholder="Player 2"></input>
+            </div> 
+            <div class="play2-choice">
+                <p class="choice-cross">X</p>
+                <p class="choice-circle">O</p>
+            </div>
+        </div>
+        </div>
     </div>
 
+    <div class="header">
+        <p class="name-header">TIC-TAC-TOE</p>
+        <div class="subMenu">
+            <div class="menu-btn">Menu</div>
+            <div class="reset">Reset</div>
+        </div>
+    </div>
+
+    <div class="center">
+        <div class="score">
+            <div class="play1">
+                <p class="textp1">Player 1 : </p>
+                <p class="scorep1">0</p> 
+            </div>
+            <div class="play2">
+                <p class="textp2">Bot : </p>
+                <p class="scorep2">0</p>
+            </div>
+        </div>
+        <div class="board">
+            <div class="square" id="a3"> </div>
+            <div class="square" id="b3"></div>
+            <div class="square" id="c3"></div>
+            <div class="square" id="a2"></div>
+            <div class="square" id="b2"></div>
+            <div class="square" id="c2"></div>
+            <div class="square" id="a1"></div>
+            <div class="square" id="b1"></div>
+            <div class="square" id="c1"></div>
+        </div>
+    </div>
+    <div class ="copy"> 2022 - aalbino221 <img  class = 'git' src="git.png"> </div> 
+    <div class="block"></div>
 
 </body>
 </html>
