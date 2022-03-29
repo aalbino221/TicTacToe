@@ -194,3 +194,9 @@ p{margin: 0;}
     top: 0;
     height: 100%;
     width: 100%;}
+
+@media only screen and (max-height: 850px) {
+    .circle {
+   width: 50%;
+    }
+}
