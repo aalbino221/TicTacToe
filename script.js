@@ -8,7 +8,7 @@ let gameboard = {
        player2: {name:"AI",choice:"Circle", wins:0, turn: 2}
     },
     AI: true,
-    diff: '',
+    diff: 'Easy',
     }
 
  let move = {
