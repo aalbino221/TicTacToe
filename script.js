@@ -8,6 +8,7 @@ let gameboard = {
        player2: {name:"AI",choice:"Circle", wins:0, turn: 2}
     },
     AI: true,
+    diff: '',
     }
 
  let move = {
@@ -21,9 +22,12 @@ let gameboard = {
                 else {this.addCircle(i)}
                 };
             gameRules.checkWin();
-            if (gameRules.check() == false && gameboard.AI == true) {
+            if (gameRules.check() == false && gameboard.AI == true && gameboard.diff == "Easy") {
                setTimeout(AI.easy , 500)
             }
+            else if (gameRules.check() == false && gameboard.AI == true && gameboard.diff == "Hard") {
+                setTimeout(AI.hard , 500)
+             }
         },
         block: function () {
             let block = document.querySelector(".block")
@@ -91,9 +95,7 @@ let gameRules = (function () {
         return false}
 
     function check() {
-       if( rowHorizontal()) {return true}
-       if( rowVertical()) {return true}
-       if( rowDiagonal()) {return true}
+       if( rowHorizontal() || rowDiagonal() || rowVertical()) {return true}
        return false
     }
 
@@ -156,7 +158,10 @@ let gameFlow = {
             delete move.squares[i].dataset.move}
         move.lastTurn= "";
         if (gameboard.players.player1.choice == "Cross") { move.turn = 1 } 
-        else {move.turn = 2; setTimeout(AI.easy,500)}
+        else {move.turn = 2; 
+            if(gameboard.diff == "Easy") {setTimeout(AI.easy,500)}
+            else {setTimeout(AI.hard,500)}
+        }
 
     },
 }
@@ -203,14 +208,17 @@ let menu = {
     twoPlayer: function() {
         menu.selectors.twoPlayer.addEventListener("click",this.startTwo)
     },
-    
+
     startOne: function () {
         document.querySelector(".textp2").textContent = "BOT"
         gameboard.AI = true
         menu.start();
         gameFlow.listener();
         gameFlow.resetBoard();
-        if (gameboard.players.player1.choice == "Circle") {setTimeout(AI.easy, 300)}
+        if (gameboard.players.player1.choice == "Circle") {
+            if(gameboard.diff == "Easy") {setTimeout(AI.easy, 300)}
+            else {setTimeout(AI.hard, 300)}
+        }
     },
     
     startTwo: function () {
@@ -254,8 +262,120 @@ let AI = {
             console.log(move.turn) 
             move.makeMove(i)
     },
-    hard: '',
+    hard: function () {
+        if ((move.turn%2) != 0 || gameboard.AI == false || (move.turn == 10 && gameboard.players.player1.choice == "Cross")) {return false} 
+        function simulation () {   
+        let board =  []
+        function toBoard() {
+        if (gameboard.players.player1.choice == 'Cross') {
+            for (let i=0; i < 9; i++) {
+                if (board[i] == 'Cross') {board[i] = 1 ;}
+                else if (board[i] == 'Circle') {board[i] = 2 }
+            }
+        }
+        else if (gameboard.players.player1.choice == 'Circle') {
+            for (let i=0; i < 9; i++) {
+                if (board[i] == 'Circle') {board[i] = 1 }
+                else if (board[i] == 'Cross') {board[i] = 2}
+            }
+        }
+        }
+    
+        let move = []
+    
+        function bestMove() {
+        board = [...gameboard.squares]
+        toBoard();
+        move = []
+        for(let i = 0; i < 9 ; i++) {
+            if (board[i] != 0) {move.push(null) ;continue}  
+            board[i] = 2;
+            let score = minMax(10,false);
+            board[i] = 0;
+            move.push(score)
+            }
+        let max = Math.max(...move)
+        let index = move.indexOf(max)
+        return index
+    }
+    
+    function minMax(depth, isMaximizing) {
+        if (checkDraw() || check() || depth == 0) {
+            if (check() && isMaximizing == false) { return 10}
+            else if (check() && isMaximizing) {return -10}
+            else if (checkDraw()) {return 0}
+        }
+        else if (isMaximizing) {
+            let eval = -Infinity;
+            for(let i = 0; i < 9 ; i++) {
+                if (board[i] != 0) {continue}  
+                board[i] = 2;
+                let score = minMax(depth-1,false);
+                board[i] = 0;
+                if (score > eval || checkDraw()) {
+                    eval = score;
+                }
+            }
+            return eval
+        }
+        else if (isMaximizing == false) {
+            let eval = Infinity;
+            for(let i = 0; i < 9 ; i++) {
+                if (board[i] != 0) {continue}  
+                board[i] = 1;
+                let score = minMax(depth-1,true);
+                board[i] = 0;
+                if (score < eval  || checkDraw()) {
+                    eval = score;
+                }
+            }
+        return eval
+        }
+    }
+    
+    function check () {
+        if ( checkRow() ||  checkColumn() || checkDiagonal()) {
+            return true}
+    }
+    
+    function checkRow () {
+        let row1 = board[0] == board[1] && board[1] == board[2] && board [2] != 0
+        let row2 = board[3] == board[4] && board[4] == board[5] && board [5] != 0
+        let row3 = board[6] == board[7] && board[7] == board[8] && board [6] != 0
+        if (row1 || row2 || row3) {return true} 
+        else {return false}
+    }
+    
+    function checkColumn () {
+        let column1 = board[0] == board[3] && board[3] == board[6] && board [6] != 0
+        let column2 = board[1] == board[4] && board[4] == board[7] && board [7] != 0
+        let column3 = board[2] == board[5] && board[5] == board[8] && board [8] != 0
+        if (column1 || column2 || column3) {return true} 
+        else {return false}
+    }
+    
+    function checkDiagonal () {
+        let diagonal1 = board[0] == board[4] && board[4] == board[8] && board [8] != 0
+        let diagonal2 = board[2] == board[4] && board[4] == board[6] && board [6] != 0
+        if (diagonal1 || diagonal2) {return true} 
+        else {return false}
+    }
+    
+    function checkDraw() {
+        let z = 0;
+        for(j = 0 ; j < +9 ; j++){
+            if (board[j] != 0) {z++}
+        }
+        if (z == 9) {return true}
+    }
+    let k = bestMove()
+    return k
 }
+        let i = simulation()
+        move.makeMove(i)
+    },
+}
+
 
 let choices = {
     easy: function (){
@@ -264,6 +384,7 @@ let choices = {
         easy.addEventListener("click", ()=>{
             easy.style.backgroundColor =  "rgba(17, 17, 17, 0.397)";
             hard.style.backgroundColor= "rgba(17, 17, 17, 0.0)";
+            gameboard.diff = "Easy"
         })
     },
 
@@ -275,6 +396,8 @@ let choices = {
             easy.style.backgroundColor= "rgba(17, 17, 17, 0.0)";
             hard.style.borderRadius = "5px";
             hard.style.padding = "0 4px 0 0";
+            gameboard.diff = "Hard"
+
         })
     },
 
